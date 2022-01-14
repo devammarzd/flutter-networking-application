@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_networking_app/screens/home.dart';
-import 'package:flutter_networking_app/screens/login.dart';
-import 'package:flutter_networking_app/screens/register.dart';
+import 'package:flutter_networking_app/screens/addpost.dart';
+import 'package:flutter_networking_app/screens/editpost.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,14 +14,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.indigo,
       ),
-      initialRoute: LoginScreen.id,
+      initialRoute: HomeScreen.id,
       routes: {
-        LoginScreen.id: (context) => LoginScreen(),
+        AddPostScreen.id: (context) => AddPostScreen(),
         HomeScreen.id: (context) => HomeScreen(),
-        RegisterScreen.id: (context) => RegisterScreen(),
+        EditPostScreen.id: (context) => EditPostScreen(),
       },
     );
   }
