@@ -19,7 +19,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Ceate A Post"),
+        title: Text("Create A Post"),
       ),
       body: SingleChildScrollView(
         child: Padding(
