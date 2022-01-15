@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_networking_app/screens/editpost.dart';
+import 'package:flutter_networking_app/services/models.dart';
+import 'package:flutter_networking_app/services/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 ///A Custom Post Widget to display in the UI
 class CustomPostWidget extends StatelessWidget {
-  const CustomPostWidget({Key? key}) : super(key: key);
-
+  final PostModel postModel;
+  const CustomPostWidget({required this.postModel});
+  deletePost() async {}
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => EditPostScreen()));
+            context,
+            MaterialPageRoute(
+                builder: (_) => EditPostScreen(postToUpdate: postModel)));
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -31,12 +37,12 @@ class CustomPostWidget extends StatelessWidget {
                                 fontSize: 13,
                                 fontWeight: FontWeight.normal),
                             children: [
-                          TextSpan(text: "Post ID:"),
+                          TextSpan(text: "Post ID: "),
                           TextSpan(
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey[700]),
-                              text: " 10")
+                              text: postModel.id)
                         ])),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -50,13 +56,13 @@ class CustomPostWidget extends StatelessWidget {
                                   fontWeight: FontWeight.normal),
                               children: [
                             TextSpan(
-                              text: "Title:",
+                              text: "Title: ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blueAccent),
                             ),
                             TextSpan(
-                              text: " Post Title",
+                              text: postModel.title,
                             )
                           ])),
                     ),
@@ -70,12 +76,10 @@ class CustomPostWidget extends StatelessWidget {
                                   fontWeight: FontWeight.normal),
                               children: [
                             TextSpan(
-                              text: "Body:",
+                              text: "Body: ",
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(
-                                text:
-                                    "This is the body of the post xyz 123 xyz 123")
+                            TextSpan(text: postModel.body)
                           ])),
                     ),
                   ],
@@ -85,7 +89,31 @@ class CustomPostWidget extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    try {
+                      await ApiServices().deletePost(postModel.id);
+                      Fluttertoast.showToast(
+                          msg: "Post Deleted!",
+                          backgroundColor: Colors.blue,
+                          textColor: Colors.white);
+                    } catch (e) {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                              title: Text("Error Occured"),
+                              content: Text(e.toString()),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Ok"))
+                              ],
+                            );
+                          });
+                    }
+                  },
                   constraints: BoxConstraints(),
                   padding: EdgeInsets.all(10),
                   splashRadius: 20,

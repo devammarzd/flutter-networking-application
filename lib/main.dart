@@ -20,7 +20,9 @@ class MyApp extends StatelessWidget {
       routes: {
         AddPostScreen.id: (context) => AddPostScreen(),
         HomeScreen.id: (context) => HomeScreen(),
-        EditPostScreen.id: (context) => EditPostScreen(),
+        EditPostScreen.id: (context) => EditPostScreen(
+              postToUpdate: null,
+            ),
       },
     );
   }
