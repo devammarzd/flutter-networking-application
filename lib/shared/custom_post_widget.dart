@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_networking_app/screens/editpost.dart';
 
-class CustomProfileCard extends StatelessWidget {
-  const CustomProfileCard({Key? key}) : super(key: key);
+///A Custom Post Widget to display in the UI
+class CustomPostWidget extends StatelessWidget {
+  const CustomPostWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

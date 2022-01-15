@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_networking_app/constants.dart';
 import 'package:flutter_networking_app/screens/addpost.dart';
-import 'package:flutter_networking_app/shared/custom_post_card.dart';
+import 'package:flutter_networking_app/shared/custom_post_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "home";
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("All Users"),
+          title: Text("All Posts"),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView.separated(
             itemCount: 20,
             itemBuilder: (_, i) {
-              return CustomProfileCard();
+              return CustomPostWidget();
             },
             separatorBuilder: (_, i) {
               return Divider(color: primaryColor);
