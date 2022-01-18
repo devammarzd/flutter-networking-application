@@ -6,22 +6,23 @@ import 'package:http/http.dart' as http;
 
 ///API Services class contains all the functions related to API calls
 class ApiServices {
-  ///This api call fetches single post from the server and returns a PostModel.
-  Future<PostModel> getSinglePost(String id) async {
-    String apiEndPoint = baseUrl + "/posts/$id";
+  ///This api call fetches single user from the server and returns a UserModel.
+  Future<UserDetailModel> getUserDetailsById(String id) async {
+    String apiEndPoint = baseUrl + "/user/$id";
     try {
-      //Get Request execution
-      http.Response response = await http.get(
-        Uri.parse(apiEndPoint),
-      );
+      //Get Request execution with app-id in headers
+      http.Response response =
+          await http.get(Uri.parse(apiEndPoint), headers: {"app-id": appId});
       //if status code is 200, then and only proceed further. Else Throw an error
       if (response.statusCode == 200) {
         //converts json string i.e response.body into dynamic object
-        dynamic jsonData = JsonDecoder().convert(response.body);
+        dynamic dynamicObject = JsonDecoder().convert(response.body);
+        print(dynamicObject);
         //converting data into model
-        PostModel postModel = PostModel.fromJson(jsonData);
+        UserDetailModel userDetailModel =
+            UserDetailModel.fromMap(dynamicObject);
 
-        return postModel;
+        return userDetailModel;
       } else
         throw Exception(["Error: ${response.statusCode} status code."]);
     } catch (e) {
@@ -30,27 +31,26 @@ class ApiServices {
     }
   }
 
-  ///This api call fetches all the posts from the server and returns a list of PostModel.
-  Future<List<PostModel>> getAllPosts() async {
+  ///This api call fetches all the users from the server and returns a list of UserModel.
+  Future<List<UserModel>> getAllUsers() async {
     ///Api To Call
-    String apiEndPoint = baseUrl + "/posts";
+    String apiEndPoint = baseUrl + "/user";
     try {
       //Get Request execution
-      http.Response response = await http.get(
-        Uri.parse(apiEndPoint),
-      );
+      http.Response response =
+          await http.get(Uri.parse(apiEndPoint), headers: {"app-id": appId});
       //if status code is 200, then and only proceed further. Else Throw an error
       if (response.statusCode == 200) {
         //converts json string i.e response.body into dynamic object
-        dynamic jsonData = JsonDecoder().convert(response.body);
-
-        List<PostModel> allPosts = [];
-        for (var data in jsonData) {
+        dynamic dynamicObject = JsonDecoder().convert(response.body);
+        dynamic allData = dynamicObject["data"];
+        List<UserModel> allUsers = [];
+        for (var data in allData) {
           //converting api response data into models
-          PostModel postModel = PostModel.fromJson(data);
-          allPosts.add(postModel);
+          UserModel userMode = UserModel.fromMap(data);
+          allUsers.add(userMode);
         }
-        return allPosts;
+        return allUsers;
       } else
         throw Exception(["Error: ${response.statusCode} status code."]);
     } catch (e) {
@@ -59,21 +59,20 @@ class ApiServices {
     }
   }
 
-  ///This api call creates a post
-  Future createPost(PostModel postModel) async {
+  ///This api call creates a user
+  Future createUser(UserDetailModel userModel) async {
     ///Api To Call
-    String apiEndPoint = baseUrl + "/posts";
+    String apiEndPoint = baseUrl + "/user/create";
 
     try {
-      Map<String, dynamic> mapbody = postModel.toJson();
+      Map<String, dynamic> mapbody = userModel.toMapForCreatingUser();
       //POST Request execution
-      http.Response response = await http.post(
-        Uri.parse(apiEndPoint),
-        body: mapbody,
-      );
+      http.Response response = await http.post(Uri.parse(apiEndPoint),
+          body: mapbody, headers: {"app-id": appId});
+
       //if status code is 200, then and only proceed further. Else Throw an error
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("New Post Created!");
+        print("New User Created!");
         print(response.body);
       } else {
         throw Exception(["Error: ${response.statusCode} status code."]);
@@ -84,21 +83,19 @@ class ApiServices {
     }
   }
 
-  ///This api call updates the post
-  Future updatePost(PostModel postModel) async {
+  ///This api call updates the User
+  Future updateUser(
+      {required Map<String, dynamic> body, required String id}) async {
     ///Api To Call
-    String apiEndPoint = baseUrl + "/posts/${postModel.id}";
+    String apiEndPoint = baseUrl + "/user/$id";
 
     try {
-      Map<String, dynamic> mapbody = postModel.toJson();
       //PUT Request execution
-      http.Response response = await http.put(
-        Uri.parse(apiEndPoint),
-        body: mapbody,
-      );
+      http.Response response = await http
+          .put(Uri.parse(apiEndPoint), body: body, headers: {"app-id": appId});
       //if status code is 200, then and only proceed further. Else Throw an error
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Post Updated!");
+        print("User Updated!");
         print(response.body);
       } else {
         throw Exception(["Error: ${response.statusCode} status code."]);
@@ -109,19 +106,18 @@ class ApiServices {
     }
   }
 
-  ///This api call Deletes the post
-  Future deletePost(String id) async {
+  ///This api call Deletes the user by the given id
+  Future deleteUser(String id) async {
     ///Api To Call
-    String apiEndPoint = baseUrl + "/posts/$id";
+    String apiEndPoint = baseUrl + "/user/$id";
 
     try {
       //DELETE Request execution
-      http.Response response = await http.delete(
-        Uri.parse(apiEndPoint),
-      );
+      http.Response response =
+          await http.delete(Uri.parse(apiEndPoint), headers: {"app-id": appId});
       //if status code is 200, then and only proceed further. Else Throw an error
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Post Deleted!");
+        print("User Deleted!");
         print(response.body);
       } else {
         throw Exception(["Error: ${response.statusCode} status code."]);
