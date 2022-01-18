@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_networking_app/screens/home.dart';
-import 'package:flutter_networking_app/screens/addpost.dart';
-import 'package:flutter_networking_app/screens/editpost.dart';
+import 'package:flutter_networking_app/constants.dart';
+import 'package:flutter_networking_app/screens/all_users.dart';
+import 'package:flutter_networking_app/screens/create_user.dart';
+import 'package:flutter_networking_app/screens/edit_user.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +15,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.indigo,
+        primaryColor: primaryColor,
       ),
-      initialRoute: HomeScreen.id,
+      initialRoute: AllUsersScreen.id,
       routes: {
-        AddPostScreen.id: (context) => AddPostScreen(),
-        HomeScreen.id: (context) => HomeScreen(),
-        EditPostScreen.id: (context) => EditPostScreen(),
+        CreateUserScreen.id: (context) => CreateUserScreen(),
+        AllUsersScreen.id: (context) => AllUsersScreen(),
+        EditUserScreen.id: (context) => EditUserScreen(),
       },
     );
   }
