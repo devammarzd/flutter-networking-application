@@ -70,7 +70,7 @@ class ApiServices {
       http.Response response = await http.post(Uri.parse(apiEndPoint),
           body: mapbody, headers: {"app-id": appId});
 
-      //if status code is 200, then and only proceed further. Else Throw an error
+      //if status code is 200 or 201, then and only proceed further. Else Throw an error
       if (response.statusCode == 200 || response.statusCode == 201) {
         print("New User Created!");
         print(response.body);

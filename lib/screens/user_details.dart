@@ -134,11 +134,14 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                                   CustomDetailContainer(
                                       title: "Phone",
                                       detail: userDetailModel!.phone),
-                                  // CustomDetailContainer(
-                                  //   title: "Address",
-                                  //   detail:
-                                  //       "A-1 Street, XYZ Block, ABC City, yewed,dewd, wedew",
-                                  // ),
+                                  CustomDetailContainer(
+                                    title: "Address",
+                                    detail: userDetailModel!.location!.street +
+                                        ", " +
+                                        userDetailModel!.location!.city +
+                                        ", " +
+                                        userDetailModel!.location!.country,
+                                  ),
                                 ],
                               )),
                         ),
