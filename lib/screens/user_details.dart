@@ -57,7 +57,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                           ),
                         ),
                         Text(
-                          "Mr. Ammar Zahid",
+                          "Ms. Sara Jane",
                           style: TextStyle(
                               color: Colors.blue[800],
                               fontWeight: FontWeight.bold,
@@ -81,12 +81,12 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         child: Column(
                           children: [
                             CustomDetailContainer(
-                                title: "Email", detail: "ammar@email.com"),
+                                title: "Email", detail: "sara@email.com"),
                             CustomDetailContainer(
                                 title: "Date Of Birth",
                                 detail: "12th Jan 1998"),
                             CustomDetailContainer(
-                                title: "Gender", detail: "Male"),
+                                title: "Gender", detail: "Female"),
                             CustomDetailContainer(
                                 title: "Phone", detail: "+92309090900"),
                             CustomDetailContainer(

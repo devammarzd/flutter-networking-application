@@ -83,7 +83,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                                 ),
                               ),
                               TextFormField(
-                                controller: firstNameController,
+                                controller: lastNameController,
                                 validator: (val) {
                                   return val!.isEmpty
                                       ? "Please Enter Last Name"

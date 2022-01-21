@@ -85,7 +85,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                 ),
                               ),
                               TextFormField(
-                                controller: firstNameController,
+                                controller: lastNameController,
                                 validator: (val) {
                                   return val!.isEmpty
                                       ? "Please Enter Last Name"
